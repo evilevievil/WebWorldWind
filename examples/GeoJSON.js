@@ -19,9 +19,9 @@
  */
 
 requirejs(['./WorldWindShim',
-        './LayerManager'],
+    './LayerManager'],
     function (WorldWind,
-              LayerManager) {
+        LayerManager) {
         "use strict";
 
         // Tell WorldWind to log only warnings and errors.
@@ -33,13 +33,13 @@ requirejs(['./WorldWindShim',
         // Create and add layers to the WorldWindow.
         var layers = [
             // Imagery layers.
-            {layer: new WorldWind.BMNGLayer(), enabled: true},
+            { layer: new WorldWind.BMNGLayer(), enabled: true },
             // Add atmosphere layer on top of base layer.
-            {layer: new WorldWind.AtmosphereLayer(), enabled: true},
+            { layer: new WorldWind.AtmosphereLayer(), enabled: true },
             // WorldWindow UI layers.
-            {layer: new WorldWind.CompassLayer(), enabled: true},
-            {layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true},
-            {layer: new WorldWind.ViewControlsLayer(wwd), enabled: true}
+            { layer: new WorldWind.CompassLayer(), enabled: true },
+            { layer: new WorldWind.CoordinatesDisplayLayer(wwd), enabled: true },
+            { layer: new WorldWind.ViewControlsLayer(wwd), enabled: true }
         ];
 
         for (var l = 0; l < layers.length; l++) {
@@ -106,70 +106,22 @@ requirejs(['./WorldWindShim',
         };
 
         var resourcesUrl = "https://worldwind.arc.nasa.gov/web/examples/data/geojson-data/";
+        var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
-        // Polygon test
-        var polygonLayer = new WorldWind.RenderableLayer("Polygon - Romania");
-        var polygonGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "PolygonTest.geojson");
-        polygonGeoJSON.load(null, shapeConfigurationCallback, polygonLayer);
-        wwd.addLayer(polygonLayer);
+        //Meteorite Point test
+        /* var meteoritePointLayer = new WorldWind.RenderableLayer("Point - Meteorite");
+        var meteoritePointGeoJSON = new WorldWind.GeoJSONParser(eteoriteUrl);
+        var meteoritePointGeoJSONPosn = meteoritePointGeoJSON[0];
+        console.log(JSON.stringify(meteoritePointGeoJSONPosn));
+        meteoritePointGeoJSONPosn.load(null, shapeConfigurationCallback, meteoritePointLayer);
+        wwd.addLayer(meteoritePointLayer); */
 
-        // MultiPolygon test
-        var multiPolygonLayer = new WorldWind.RenderableLayer("MultiPolygon - Italy");
-        var multiPolygonGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "MultiPolygonTest.geojson");
-        multiPolygonGeoJSON.load(null, shapeConfigurationCallback, multiPolygonLayer);
-        wwd.addLayer(multiPolygonLayer);
-
-        //Point test
-        var pointLayer = new WorldWind.RenderableLayer("Point - Bucharest");
-        var pointGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "PointTest.geojson");
-        pointGeoJSON.load(null, shapeConfigurationCallback, pointLayer);
-        wwd.addLayer(pointLayer);
-
-        //MultiPoint test
-        var multiPointLayer = new WorldWind.RenderableLayer("MultiPoint - Italy");
-        var multiPointGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "MultiPointTest.geojson");
-        multiPointGeoJSON.load(null, shapeConfigurationCallback, multiPointLayer);
-        wwd.addLayer(multiPointLayer);
-
-        //LineString test
-        var lineStringLayer = new WorldWind.RenderableLayer("LineString - Cluj - Bologna");
-        var lineStringDataSource = '{ "type": "LineString", "coordinates": [[23.62364, 46.77121] , [ 11.34262, 44.49489]] }';
-        var lineStringGeoJSON = new WorldWind.GeoJSONParser(lineStringDataSource);
-        lineStringGeoJSON.load(null, shapeConfigurationCallback, lineStringLayer);
-        wwd.addLayer(lineStringLayer);
-
-        //MultiLineString test
-        var multiLineStringLayer = new WorldWind.RenderableLayer("MultiLineString - Danube");
-        var multiLineStringGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "MultiLineStringTest.geojson");
-        multiLineStringGeoJSON.load(null, shapeConfigurationCallback, multiLineStringLayer);
-        wwd.addLayer(multiLineStringLayer);
-
-        // GeometryCollection test with a callback function
-        var geometryCollectionLayer = new WorldWind.RenderableLayer("GeometryCollection - Greece");
-        var geometryCollectionGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "GeometryCollectionFeatureTest.geojson");
-        geometryCollectionGeoJSON.load(parserCompletionCallback, shapeConfigurationCallback, geometryCollectionLayer);
-
-        // Feature test
-        var featureLayer = new WorldWind.RenderableLayer("Feature - Germany");
-        var featureGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "FeatureTest.geojson");
-        featureGeoJSON.load(null, shapeConfigurationCallback, featureLayer);
-        wwd.addLayer(featureLayer);
-
-        // Feature collection test
-
-        // Feature collection - Spain and Portugal
-        var spainLayer = new WorldWind.RenderableLayer("Feature Collection - Spain & Portugal");
-        var spainGeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "FeatureCollectionTest_Spain_Portugal.geojson");
-        spainGeoJSON.load(null, shapeConfigurationCallback, spainLayer);
-        wwd.addLayer(spainLayer);
-
-        //CRS Reprojection test
-
-        //USA EPSG:3857 named
-        var ch3857Layer = new WorldWind.RenderableLayer("Switzerland 3857");
-        var ch3857GeoJSON = new WorldWind.GeoJSONParser(resourcesUrl + "FeatureCollectionTest_EPSG3857_Switzerland.geojson");
-        ch3857GeoJSON.load(null, shapeConfigurationCallback, ch3857Layer);
-        wwd.addLayer(ch3857Layer);
+        var meteoritePointLayer = new WorldWind.RenderableLayer("Point - Meteorite");
+        var meteoritePointGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl);
+        // var meteoritePointGeoJSONPosn = meteoritePointGeoJSON[0];
+        // console.log(JSON.stringify(meteoritePointGeoJSONPosn));
+        meteoritePointGeoJSON.load(null, shapeConfigurationCallback, meteoritePointLayer);
+        wwd.addLayer(meteoritePointLayer);
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(wwd);
