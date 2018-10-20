@@ -22,19 +22,54 @@
             <div class="dropdown" id="projectionDropdown">
             </div>
             <br>
-            <h4>Layers</h4>
+            <h4>Search by</h4>
+            <div class="col-sm-9">
+                    <h4>Meteorite ID</h4>
+                    <div class="input-group" id="searchBox">
+                        <input type="text" class="form-control" placeholder="Go to" id="searchText"/>
+                        <span class="input-group-btn">
+                            <button id="searchButton" class="btn btn-primary" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <h4>Meteorite name</h4>
+                    <div class="input-group" id="searchBox">
+                        <input type="text" class="form-control" placeholder="Go to" id="searchText"/>
+                        <span class="input-group-btn">
+                            <button id="searchButton" class="btn btn-primary" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                    <h4>Location</h4>
+                    <div class="input-group" id="searchBox">
+                        <input type="text" class="form-control" placeholder="Go to" id="searchText"/>
+                        <span class="input-group-btn">
+                            <button id="searchButton" class="btn btn-primary" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+            </div>
+            <br>
+            
+ <h4>Layers</h4>
             <div class="list-group" id="layerList">
             </div>
             <br>
-            <h4>Destination</h4>
-            <div class="input-group" id="searchBox">
-                <input type="text" class="form-control" placeholder="GoTo" id="searchText"/>
-                <span class="input-group-btn">
-                    <button id="searchButton" class="btn btn-primary" type="button">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
-            </div>
+       <h4>Year</h4>
+       <div class="input-group" id="searchBox">
+            <label for="start">Start</label>
+            <input type="date" id="start" name="trip" placeholder="YYYY-MM-DD"
+                   min="0861-01-01" max="2018-12-31" />
+        </div>
+    
+        <div>
+            <label for="end">End</label>
+            <input type="date" id="end" name="trip" placeholder="YYYY-MM-DD"
+                   min="0861-01-01" max="2018-12-31"/ >
+        </div>
         </div>
         <div class="col-sm-9" id="globe">
             <canvas id="canvasOne" width="1000" height="1000"
@@ -43,28 +78,8 @@
             </canvas>
         </div>
     </div>
-    <div class="row" id="options">
-        <h4>Options</h4>
-        <div class="col-sm-9">
-            <div class="options">
-                <h4>Location</h4>
-                <div class="input-group">
-                    <input type="number" class="input" placeholder="Lat" id="search-lat">
-                    <input type="number" class="input" placeholder="Long" id="search-long">
-                    <button class="btn btn-primary" type="button">Go!</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-9">
-            <div class="options">
-                <h4>Time</h4>
-                <div class="input-group">
-                    <input type="range" min="1700" max="2018" value="2000" class="slider" id="time-pick">
-                </div>
-            </div>
-        </div>
-
     </div>
+</body>
 </div>
 </body>
 </html>
