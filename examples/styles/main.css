@@ -1,0 +1,14 @@
+.input {
+    width:15%;
+    margin-right:4px;
+}
+
+#options {
+    float:left;
+}
+
+.options {
+    padding-left: 0;
+    margin-bottom: 20px;
+    float:left;
+}
