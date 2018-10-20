@@ -108,20 +108,17 @@ requirejs(['./WorldWindShim',
         var resourcesUrl = "https://worldwind.arc.nasa.gov/web/examples/data/geojson-data/";
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
-        //Meteorite Point test
-        /* var meteoritePointLayer = new WorldWind.RenderableLayer("Point - Meteorite");
-        var meteoritePointGeoJSON = new WorldWind.GeoJSONParser(eteoriteUrl);
-        var meteoritePointGeoJSONPosn = meteoritePointGeoJSON[0];
-        console.log(JSON.stringify(meteoritePointGeoJSONPosn));
-        meteoritePointGeoJSONPosn.load(null, shapeConfigurationCallback, meteoritePointLayer);
-        wwd.addLayer(meteoritePointLayer); */
+        //Search By Coordinates
+        var meteoriteCoordinateLayer = new WorldWind.RenderableLayer("Search By Coordinates");
+        var meteoriteSearchGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=1");
+        meteoriteSearchGeoJSON.load(null, shapeConfigurationCallback, meteoriteCoordinateLayer);
+        wwd.addLayer(meteoriteCoordinateLayer); 
 
-        var meteoritePointLayer = new WorldWind.RenderableLayer("Point - Meteorite");
-        var meteoritePointGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl);
-        // var meteoritePointGeoJSONPosn = meteoritePointGeoJSON[0];
-        // console.log(JSON.stringify(meteoritePointGeoJSONPosn));
-        meteoritePointGeoJSON.load(null, shapeConfigurationCallback, meteoritePointLayer);
-        wwd.addLayer(meteoritePointLayer);
+        //Show All Meteorite
+        var allMeteoritePointLayer = new WorldWind.RenderableLayer("Show All Meteorite");
+        var allMeteoritePointGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl);
+        allMeteoritePointGeoJSON.load(null, shapeConfigurationCallback, allMeteoritePointLayer);
+        wwd.addLayer(allMeteoritePointLayer);
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(wwd);
