@@ -170,7 +170,7 @@ requirejs(['./WorldWindShim',
         var searchByTimeRange = function (e) {
             var strStart = document.getElementById("range-start");
             var strEnd = document.getElementById("range-end");
-            var start = strStart.value;
+            var start = strStart.value;   //check input format (may not be an int)
             var end = strEnd.value;
             var meteoriteTimeRangeLayer = new WorldWind.RenderableLayer("Search By Time Range");
             var queryString = "/?$query=SELECT%20*%20WHERE%20year%20>=%20%27" + start + "-01-01T00:00:00.000%27%20AND%20year%20<=%20%27"
@@ -181,6 +181,24 @@ requirejs(['./WorldWindShim',
             wwd.addLayer(meteoriteTimeRangeLayer);
             console.log("HELLO");
         }
+
+        var searchByMassRange = function (e) {
+            var strStart = document.getElementById("range-start"); 
+            var strEnd = document.getElementById("range-end");     
+            var start = strStart.value;
+            var end = strEnd.value;
+            var meteoriteTimeRangeLayer = new WorldWind.RenderableLayer("Search By Mass Range");
+            var queryString = "/?$query=SELECT%20*%20WHERE%20mass%20>=%20%27" + start + "%27%20AND%20mass%20<=%20%27"
+            + end + "%27";
+            var meteoriteMassRangeGeoJSON =
+                new WorldWind.GeoJSONParser(meteoriteUrl + queryString);
+            meteoriteMassRangeGeoJSON.load(null, shapeConfigurationCallback, meteoriteMassRangeLayer);
+            wwd.addLayer(meteoriteMassRangeLayer);
+            meteoriteMassRangeLayer.enabled = !meteoriteMassRangeLayerLayer.enabled;
+            wwd.redraw();
+        }
+
+
         //$("#go-button").on("click", searchByLatLong);
         $("#go-button2").on("click", searchByTimeRange);
 
