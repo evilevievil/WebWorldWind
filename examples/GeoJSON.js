@@ -118,8 +118,6 @@ requirejs(['./WorldWindShim',
         }
         $("#id-search-btn").on("click", searchById);
         //$("#id-search-text").on("keyup", function (e) { if (e.keyCode === 13) { searchById;}});
-        //var e = $.Event("keyup", {keyCode = 13});
-        //$("#id-search-text").trigger(e);
 
         //Search By Name
 
@@ -152,10 +150,6 @@ requirejs(['./WorldWindShim',
         allMeteoritePointGeoJSON.load(null, shapeConfigurationCallback, allMeteoritePointLayer);
         wwd.addLayer(allMeteoritePointLayer);
 
-        var showAllMeteorites = function (e) {
-            allMeteoritePointLayer.enabled = !allMeteoritePointLayer.enabled;
-            wwd.redraw();
-        }
         /*
         var searchByLatLong = function (e) {
             var searchlat = document.getElementById("search-lat");
@@ -193,7 +187,6 @@ requirejs(['./WorldWindShim',
                 new WorldWind.GeoJSONParser(meteoriteUrl + queryString);
             meteoriteTimeRangeGeoJSON.load(null, shapeConfigurationCallback, meteoriteTimeRangeLayer);
             wwd.addLayer(meteoriteTimeRangeLayer);
-            console.log("checking time");
         }
 
         var searchByMassRange = function (e) {
@@ -210,12 +203,17 @@ requirejs(['./WorldWindShim',
             wwd.addLayer(meteoriteMassRangeLayer);
             meteoriteMassRangeLayer.enabled = !meteoriteMassRangeLayerLayer.enabled;
             wwd.redraw();
-            console.log("checking mass");
         }
 
         $("#year-end").on("keypress", searchByTimeRange);
         $("#mass-max").on("keypress", searchByMassRange);
-        //$("#go-button").on("click", searchByLatLong);
+
+        $.getJSON('https://api.nasa.gov/planetary/apod?api_key=YzjDyhVyvAH923P0U6lwbo72QCD4EBWL9N87sNyG',
+        function(data) {
+            var url = "url(" + data["url"] + ")";
+            console.log(url);
+            document.getElementById("apod").style.backgroundImage =  url;
+        });
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(wwd);
