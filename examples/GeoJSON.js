@@ -134,6 +134,22 @@ requirejs(['./WorldWindShim',
         $("#name-search-btn").on("click", searchByName);
         //$("#name-search-text").on("keypress", function (e) { if (e.keyCode == 13) searchByName;});
 
+
+
+        //Search By Latitude
+
+        var searchByLatitude = function (e) {
+            var latElem = document.getElementById("location-search-text");
+            var reclat = parseInt(latElem.value);
+            var reclatMin = reclat+5;
+            var reclatMax = reclat-5;
+            var meteoriteReclatLayer = new WorldWind.RenderableLayer("Search By Reclat");
+            var meteoriteSearchReclatGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?$query=select%20*%20%20where%20reclong%20%3E=%20%22" + reclatMin + "%22%20and%20reclong%20%3C=%20%22" + reclatMax + "%22");
+            meteoriteSearchReclatGeoJSON.load(null, shapeConfigurationCallback, meteoriteReclatLayer);
+            wwd.addLayer(meteoriteReclatLayer);
+        }
+        $("#location-search-btn").on("click", searchByLatitude);
+
         //Filter By Found
         var meteoriteFoundLayer = new WorldWind.RenderableLayer("Found Meteorite");
         var meteoriteFoundGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?fall=Found");
