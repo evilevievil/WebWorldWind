@@ -109,13 +109,13 @@ requirejs(['./WorldWindShim',
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
         //Search By Coordinates
-        var meteoriteCoordinateLayer = new WorldWind.RenderableLayer("Search By Coordinates");
+        var meteoriteCoordinateLayer = new WorldWind.RenderableLayer("Search By ID");
         var meteoriteSearchGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=1");
         meteoriteSearchGeoJSON.load(null, shapeConfigurationCallback, meteoriteCoordinateLayer);
         wwd.addLayer(meteoriteCoordinateLayer); 
 
         //Show All Meteorite
-        var allMeteoritePointLayer = new WorldWind.RenderableLayer("Show All Meteorite");
+        var allMeteoritePointLayer = new WorldWind.RenderableLayer("Show All Meteorites");
         var allMeteoritePointGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl);
         allMeteoritePointGeoJSON.load(null, shapeConfigurationCallback, allMeteoritePointLayer);
         wwd.addLayer(allMeteoritePointLayer);
