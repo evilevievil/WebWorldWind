@@ -107,6 +107,7 @@ requirejs(['./WorldWindShim',
 
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
+
         /*         //Search By Id
                 var idNumber = "1";     //get from FE
                 var meteoriteIdLayer = new WorldWind.RenderableLayer("Search By Id");
