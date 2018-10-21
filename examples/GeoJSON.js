@@ -105,14 +105,34 @@ requirejs(['./WorldWindShim',
             layerManager.synchronizeLayerList();
         };
 
-        var resourcesUrl = "https://worldwind.arc.nasa.gov/web/examples/data/geojson-data/";
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
-        //Search By Coordinates
-        var meteoriteCoordinateLayer = new WorldWind.RenderableLayer("Search By ID");
-        var meteoriteSearchGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=1");
-        meteoriteSearchGeoJSON.load(null, shapeConfigurationCallback, meteoriteCoordinateLayer);
-        wwd.addLayer(meteoriteCoordinateLayer); 
+
+        /*         //Search By Id
+                var idNumber = "1";     //get from FE
+                var meteoriteIdLayer = new WorldWind.RenderableLayer("Search By Id");
+                var meteoriteSearchIdGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=" + idNumber);
+                meteoriteSearchIdGeoJSON.load(null, shapeConfigurationCallback, meteoriteIdLayer);
+                wwd.addLayer(meteoriteIdLayer); 
+        
+                //Search By Name
+                var meteoriteName = "Api";     //get from FE
+                var meteoriteNameLayer = new WorldWind.RenderableLayer("Search By Name");
+                var meteoriteSearchNameGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?name=" + meteoriteName);
+                meteoriteSearchNameGeoJSON.load(null, shapeConfigurationCallback, meteoriteNameLayer);
+                wwd.addLayer(meteoriteNameLayer);  */
+
+        //Filter By Found
+        var meteoriteFoundLayer = new WorldWind.RenderableLayer("Found Meteorite");
+        var meteoriteFoundGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?fall=Found");
+        meteoriteFoundGeoJSON.load(null, shapeConfigurationCallback, meteoriteFoundLayer);
+        wwd.addLayer(meteoriteFoundLayer);
+
+        //Filter By Fell
+        var meteoriteFellLayer = new WorldWind.RenderableLayer("Fallen Meteorite");
+        var meteoriteFellGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?fall=Fell");
+        meteoriteFellGeoJSON.load(null, shapeConfigurationCallback, meteoriteFellLayer);
+        wwd.addLayer(meteoriteFellLayer);
 
         //Show All Meteorite
         var allMeteoritePointLayer = new WorldWind.RenderableLayer("Show All Meteorites");
@@ -125,3 +145,5 @@ requirejs(['./WorldWindShim',
         layerManager.synchronizeLayerList();
         layerManager.goToAnimator.goTo(new WorldWind.Location(38.72, 14.91))
     });
+
+
