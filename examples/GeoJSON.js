@@ -181,7 +181,7 @@ requirejs(['./WorldWindShim',
             wwd.addLayer(meteoriteTimeRangeLayer);
             console.log("HELLO");
         }
-        $("#go-button").on("click", searchByLatLong);
+        //$("#go-button").on("click", searchByLatLong);
         $("#go-button2").on("click", searchByTimeRange);
 
         // Create a layer manager for controlling layer visibility.
