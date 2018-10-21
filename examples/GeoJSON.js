@@ -107,19 +107,32 @@ requirejs(['./WorldWindShim',
 
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
-        /*         //Search By Id
-                var idNumber = "1";     //get from FE
-                var meteoriteIdLayer = new WorldWind.RenderableLayer("Search By Id");
-                var meteoriteSearchIdGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=" + idNumber);
-                meteoriteSearchIdGeoJSON.load(null, shapeConfigurationCallback, meteoriteIdLayer);
-                wwd.addLayer(meteoriteIdLayer); 
-        
-                //Search By Name
-                var meteoriteName = "Api";     //get from FE
-                var meteoriteNameLayer = new WorldWind.RenderableLayer("Search By Name");
-                var meteoriteSearchNameGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?name=" + meteoriteName);
-                meteoriteSearchNameGeoJSON.load(null, shapeConfigurationCallback, meteoriteNameLayer);
-                wwd.addLayer(meteoriteNameLayer);  */
+        //Search By Id
+        var searchById = function (e) {
+            var idElem = document.getElementById("id-search-text");
+            var idname = idElem.value;
+            var meteoriteIdLayer = new WorldWind.RenderableLayer("Search By Id");
+            var meteoriteSearchIdGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?id=" + idname);
+            meteoriteSearchIdGeoJSON.load(null, shapeConfigurationCallback, meteoriteIdLayer);
+            wwd.addLayer(meteoriteIdLayer);
+        }
+        $("#id-search-btn").on("click", searchById);
+        //$("#id-search-text").on("keyup", function (e) { if (e.keyCode === 13) { searchById;}});
+        //var e = $.Event("keyup", {keyCode = 13});
+        //$("#id-search-text").trigger(e);
+
+        //Search By Name
+
+        var searchByName = function (e) {
+            var nameElem = document.getElementById("name-search-text");
+            var name = nameElem.value;
+            var meteoriteNameLayer = new WorldWind.RenderableLayer("Search By Name");
+            var meteoriteSearchNameGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl + "/?name=" + name);
+            meteoriteSearchNameGeoJSON.load(null, shapeConfigurationCallback, meteoriteNameLayer);
+            wwd.addLayer(meteoriteNameLayer);
+        }
+        $("#name-search-btn").on("click", searchByName);
+        //$("#name-search-text").on("keypress", function (e) { if (e.keyCode == 13) searchByName;});
 
         //Filter By Found
         var meteoriteFoundLayer = new WorldWind.RenderableLayer("Found Meteorite");
@@ -168,39 +181,41 @@ requirejs(['./WorldWindShim',
         }
         */
         var searchByTimeRange = function (e) {
+            if (e.keyCode != 13) return;
             var strStart = document.getElementById("range-start");
             var strEnd = document.getElementById("range-end");
-            var start = strStart.value;   //check input format (may not be an int)
-            var end = strEnd.value;
+            var start = strStart.value.substr(0, 4);   //check input format (may not be an int)
+            var end = strEnd.value.substr(0, 4);
             var meteoriteTimeRangeLayer = new WorldWind.RenderableLayer("Search By Time Range");
             var queryString = "/?$query=SELECT%20*%20WHERE%20year%20>=%20%27" + start + "-01-01T00:00:00.000%27%20AND%20year%20<=%20%27"
-            + end + "-01-01T00:00:00.000%27";
+                + end + "-01-01T00:00:00.000%27";
             var meteoriteTimeRangeGeoJSON =
                 new WorldWind.GeoJSONParser(meteoriteUrl + queryString);
             meteoriteTimeRangeGeoJSON.load(null, shapeConfigurationCallback, meteoriteTimeRangeLayer);
             wwd.addLayer(meteoriteTimeRangeLayer);
-            console.log("HELLO");
+            console.log("checking time");
         }
 
         var searchByMassRange = function (e) {
-            var strStart = document.getElementById("range-start"); 
-            var strEnd = document.getElementById("range-end");     
+            var strStart = document.getElementById("mass-min");
+            var strEnd = document.getElementById("mass-max");
             var start = strStart.value;
             var end = strEnd.value;
-            var meteoriteTimeRangeLayer = new WorldWind.RenderableLayer("Search By Mass Range");
+            var meteoriteMassRangeLayer = new WorldWind.RenderableLayer("Search By Mass Range");
             var queryString = "/?$query=SELECT%20*%20WHERE%20mass%20>=%20%27" + start + "%27%20AND%20mass%20<=%20%27"
-            + end + "%27";
+                + end + "%27";
             var meteoriteMassRangeGeoJSON =
                 new WorldWind.GeoJSONParser(meteoriteUrl + queryString);
             meteoriteMassRangeGeoJSON.load(null, shapeConfigurationCallback, meteoriteMassRangeLayer);
             wwd.addLayer(meteoriteMassRangeLayer);
             meteoriteMassRangeLayer.enabled = !meteoriteMassRangeLayerLayer.enabled;
             wwd.redraw();
+            console.log("checking mass");
         }
 
-
+        $("#year-end").on("keypress", searchByTimeRange);
+        $("#mass-max").on("keypress", searchByMassRange);
         //$("#go-button").on("click", searchByLatLong);
-        $("#go-button2").on("click", searchByTimeRange);
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(wwd);
