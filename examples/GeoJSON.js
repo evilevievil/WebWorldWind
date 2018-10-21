@@ -107,7 +107,6 @@ requirejs(['./WorldWindShim',
 
         var meteoriteUrl = "https://data.nasa.gov/resource/y77d-th95.geojson";
 
-
         /*         //Search By Id
                 var idNumber = "1";     //get from FE
                 var meteoriteIdLayer = new WorldWind.RenderableLayer("Search By Id");
@@ -139,6 +138,51 @@ requirejs(['./WorldWindShim',
         var allMeteoritePointGeoJSON = new WorldWind.GeoJSONParser(meteoriteUrl);
         allMeteoritePointGeoJSON.load(null, shapeConfigurationCallback, allMeteoritePointLayer);
         wwd.addLayer(allMeteoritePointLayer);
+
+        var showAllMeteorites = function (e) {
+            allMeteoritePointLayer.enabled = !allMeteoritePointLayer.enabled;
+            wwd.redraw();
+        }
+        /*
+        var searchByLatLong = function (e) {
+            var searchlat = document.getElementById("search-lat");
+            var searchlong = document.getElementById("search-long");
+            var lat = searchlat.value;
+            var long = searchlong.value;
+            var flat = parseFloat(lat);
+            var flong = parseFloat(long);
+            var errorMargin = 10;
+            var meteoriteLatLongLayer = new WorldWind.RenderableLayer("Search By Lat Long");
+            var queryString2 = "/?$query=SELECT%20*%20WHERE%20reclat%20between%20%27" + (flat - errorMargin).toString() + "%27%20AND%20%27"
+            + (flat + errorMargin).toString() + "%27%20AND%20reclong%20between%20%27" + (flong - errorMargin).toString() + "%27%20AND%20%27"
+            + (flong + errorMargin).toString() + "%27";
+            var queryString = "/?$query=SELECT%20*%20WHERE%20(reclat%20BETWEEN%20%27" + (flat + errorMargin).toString() + 
+            "%27%20AND%20%27" + (flat - errorMargin).toString() + "%27)%20AND%20(reclong%20BETWEEN%20%27" + (flong + errorMargin).toString() + 
+            "%27%20AND%20%27" + (flong - errorMargin).toString() + "%27%29";
+            //console.log(queryString);
+            var meteoriteLatLongGeoJSON =
+                new WorldWind.GeoJSONParser(meteoriteUrl + queryString2);
+            meteoriteLatLongGeoJSON.load(null, shapeConfigurationCallback, meteoriteLatLongLayer);
+            wwd.addLayer(meteoriteLatLongLayer);
+            console.log("HELLO");
+        }
+        */
+        var searchByTimeRange = function (e) {
+            var strStart = document.getElementById("range-start");
+            var strEnd = document.getElementById("range-end");
+            var start = strStart.value;
+            var end = strEnd.value;
+            var meteoriteTimeRangeLayer = new WorldWind.RenderableLayer("Search By Time Range");
+            var queryString = "/?$query=SELECT%20*%20WHERE%20year%20>=%20%27" + start + "-01-01T00:00:00.000%27%20AND%20year%20<=%20%27"
+            + end + "-01-01T00:00:00.000%27";
+            var meteoriteTimeRangeGeoJSON =
+                new WorldWind.GeoJSONParser(meteoriteUrl + queryString);
+            meteoriteTimeRangeGeoJSON.load(null, shapeConfigurationCallback, meteoriteTimeRangeLayer);
+            wwd.addLayer(meteoriteTimeRangeLayer);
+            console.log("HELLO");
+        }
+        $("#go-button").on("click", searchByLatLong);
+        $("#go-button2").on("click", searchByTimeRange);
 
         // Create a layer manager for controlling layer visibility.
         var layerManager = new LayerManager(wwd);
